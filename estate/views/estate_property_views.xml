@@ -12,6 +12,7 @@
         <field name="arch" type="xml">
            <list string="Tests">
                 <field name="name"/>
+                <field name="property_type_id"/>
                 <field name="postcode"/>
                 <field name="bedrooms"/>
                 <field name="living_area"/>
@@ -31,6 +32,7 @@
                     <group>
                         <group>
                             <field name="name"/>
+                            <field name="property_type_id"/>
                             <field name="postcode"/>
                             <field name="date_availability"/>
                         </group>
@@ -52,6 +54,10 @@
                             <field name="last_seen"/>
                             <field name="active"/>
                         </page>
+                        <page string="Other Info">
+                            <field name="salesperson_id"/>
+                            <field name="buyer_id"/>
+                        </page>
                     </notebook>
                 </sheet>
             </form>
@@ -64,6 +70,7 @@
         <field name="arch" type="xml">
             <search string="Search Test">
                 <field name="name"/>
+                <field name="property_type_id"/>
                 <field name="postcode"/>
                 <field name="expected_price"/>
                 <field name="bedrooms"/>
