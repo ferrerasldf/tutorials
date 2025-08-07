@@ -44,9 +44,31 @@ class EstateProperty(models.Model):
                               tracking=True,
                               default=lambda self: self.env.user)
     partner_id = fields.Many2one('res.partner', string='Buyer', copy=False)
+    tag_ids = fields.Many2many("estate.property.tag", string="Tags")
+    offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
 
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
     _description = "Estate Property Type"
 
     name = fields.Char('Property Type', required=True)
+
+class EstatePropertyTag(models.Model):
+    _name = "estate.property.tag"
+    _description = "Estate Property Tag"
+
+    name = fields.Char('Property Tag', required=True)
+
+class EstatePropertyOffer(models.Model):
+    _name = "estate.property.offer"
+    _description = "Estate Property Offer"
+
+    price = fields.Float('Price')
+    status = fields.Selection(
+        string='Status',
+        copy=False,
+        selection=[('accepted', 'Accepted'),
+                   ('refused', 'Refused')],
+    )
+    partner_id = fields.Many2one('res.partner', required=True)
+    property_id = fields.Many2one('estate.property', required=True)
