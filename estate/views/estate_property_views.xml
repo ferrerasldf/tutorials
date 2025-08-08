@@ -45,23 +45,31 @@
                     </group>
                     <notebook>
                         <page string="Description">
-                            <field name="description"/>
-                            <field name="bedrooms"/>
-                            <field name="living_area"/>
-                            <field name="facades"/>
-                            <field name="garage"/>
-                            <field name="garden"/>
-                            <field name="garden_area"/>
-                            <field name="state"/>
-                            <field name="last_seen"/>
-                            <field name="active"/>
+                            <group>
+                                <group>
+                                    <field name="description"/>
+                                    <field name="bedrooms"/>
+                                    <field name="living_area"/>
+                                    <field name="facades"/>
+                                    <field name="garage"/>
+                                </group>
+                                <group>
+                                    <field name="garden"/>
+                                    <field name="garden_area"/>
+                                    <field name="state"/>
+                                    <field name="last_seen"/>
+                                    <field name="active"/>
+                                </group>
+                            </group>
                         </page>
                         <page string="Offers">
                             <field name="offer_ids"/>
                         </page>
                         <page string="Other Info">
-                            <field name="user_id"/>
-                            <field name="partner_id"/>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="partner_id"/>
+                            </group>
                         </page>
                     </notebook>
                 </sheet>
