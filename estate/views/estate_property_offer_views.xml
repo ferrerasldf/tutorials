@@ -18,9 +18,11 @@
         <field name="arch" type="xml">
             <form string="Property Offer Form">
                  <sheet>
-                     <field name="price"/>
-                     <field name="partner_id"/>
-                     <field name="status"/>
+                     <group>
+                         <field name="price"/>
+                         <field name="partner_id"/>
+                         <field name="status"/>
+                     </group>
                 </sheet>
             </form>
         </field>
