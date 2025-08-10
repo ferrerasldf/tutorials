@@ -41,6 +41,7 @@
                         <group>
                             <field name="expected_price"/>
                             <field name="selling_price"/>
+                            <field name="best_price"/>
                         </group>
                     </group>
                     <notebook>
@@ -52,10 +53,11 @@
                                     <field name="living_area"/>
                                     <field name="facades"/>
                                     <field name="garage"/>
-                                </group>
-                                <group>
                                     <field name="garden"/>
                                     <field name="garden_area"/>
+                                    <field name="total_area"/>
+                                </group>
+                                <group>
                                     <field name="state"/>
                                     <field name="last_seen"/>
                                     <field name="active"/>

@@ -1,6 +1,6 @@
 from dateutil.relativedelta import relativedelta
-from odoo import fields, models
-from datetime import date
+from odoo import fields, models, api
+from datetime import date, timedelta
 
 
 class EstateProperty(models.Model):
@@ -46,6 +46,23 @@ class EstateProperty(models.Model):
     partner_id = fields.Many2one('res.partner', string='Buyer', copy=False)
     tag_ids = fields.Many2many("estate.property.tag", string="Tags")
     offer_ids = fields.One2many("estate.property.offer", "property_id", string="Offers")
+    total_area = fields.Float("Total Area", compute="_compute_total_area")
+    best_price =fields.Float("Best Price", compute="_compute_best_price")
+
+    @api.depends('living_area', 'garden_area' )
+    def _compute_total_area(self):
+        for record in self:
+            record.total_area = record.living_area + record.garden_area
+
+    @api.depends('offer_ids')
+    def _compute_best_price(self):
+        for record in self:
+            record.best_price = max(record.offer_ids.mapped('price')) if record.offer_ids else 0
+
+    @api.depends('offer_ids')
+    def _compute_best_price(self):
+        for record in self:
+            record.best_price = max(record.offer_ids.mapped('price')) if record.offer_ids else 0
 
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
@@ -72,3 +89,16 @@ class EstatePropertyOffer(models.Model):
     )
     partner_id = fields.Many2one('res.partner', required=True)
     property_id = fields.Many2one('estate.property', required=True)
+    validity = fields.Integer(string='Validity(days)', default=7)
+    date_deadline = fields.Date("Deadline",
+                                compute="_compute_date_deadline",
+                                inverse="_inverse_date_deadline")
+
+    @api.depends('validity')
+    def _compute_date_deadline(self):
+        for record in self:
+            record.date_deadline = date.today() + timedelta(days=record.validity)
+
+    def _inverse_date_deadline(self):
+        for record in self:
+            record.date_deadline = record.create_date + relativedelta(days=record.validity)
