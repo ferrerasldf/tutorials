@@ -59,10 +59,15 @@ class EstateProperty(models.Model):
         for record in self:
             record.best_price = max(record.offer_ids.mapped('price')) if record.offer_ids else 0
 
-    @api.depends('offer_ids')
-    def _compute_best_price(self):
+    @api.onchange('garden')
+    def _onchange_garden(self):
         for record in self:
-            record.best_price = max(record.offer_ids.mapped('price')) if record.offer_ids else 0
+            if record.garden:
+                record.garden_area = 10
+                record.garden_orientation = 'north'
+            else:
+                record.garden_area = 0
+                record.garden_orientation = ''
 
 class EstatePropertyType(models.Model):
     _name = "estate.property.type"
